@@ -1,6 +1,6 @@
 {
   // ── .NET / C# ──────────────────────────────────────────────────
-  "dotnet.defaultSolution": "basedevcontainer-workspace.sln",
+  "dotnet.defaultSolution": "vscode-devcontainer-base.sln",
   "omnisharp.enableRoslynAnalyzers": true,
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.organizeImportsOnFormat": true,
@@ -102,7 +102,7 @@
   "search.useGlobalIgnoreFiles": true,
   "search.useParentIgnoreFiles": true,
   "dotnet.codeLens.enableReferencesCodeLens": true,
-  "azureFunctions.deploySubpath": "mosgarage-intelligence//libs//sdk-typescript//runtime-tests//azure-functions",
+  "azureFunctions.deploySubpath": "mosgarage-intelligence/libs/sdk-typescript/runtime-tests/azure-functions",
   "azureFunctions.postDeployTask": "npm install (functions)",
   "azureFunctions.projectLanguage": "TypeScript",
   "azureFunctions.projectRuntime": "~4",
