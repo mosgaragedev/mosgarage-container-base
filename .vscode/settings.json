@@ -1,6 +1,7 @@
 {
   // ── .NET / C# ──────────────────────────────────────────────────
-  "dotnet.defaultSolution": "vscode-devcontainer-base.sln",
+  // There is no solution at the repo root; the multi-root workspace lists
+  // each .NET project folder. Only folders with a .sln should set this.
   "omnisharp.enableRoslynAnalyzers": true,
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.organizeImportsOnFormat": true,
@@ -8,17 +9,17 @@
   "csharp.testsCodeLens.enabled": true,
   "csharp.suppressBuildAssetsNotification": true,
 
-  // ── Editor ────────────────────────────────────────────────────
+  // ── Editor ─────────────────────────────────────────────────────
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.inlayHints.enabled": "on",
   "editor.rulers": [120],
   "editor.tabSize": 4,
-  "files.eol": "/n", // LF — critical for WSL2
+  "files.eol": "\n", // LF — critical when editing from Windows over WSL
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
 
-  // ── Per-language formatting ────────────────────────────────────
+  // ── Per-language formatting ─────────────────────────────────────
   "[csharp]": {
     "editor.defaultFormatter": "ms-dotnettools.csharp",
     "editor.tabSize": 4
@@ -45,7 +46,7 @@
     "editor.tabSize": 4
   },
 
-  // ── File exclusions (keep explorer clean) ─────────────────────
+  // ── File exclusions (keep explorer clean) ──────────────────────
   "files.exclude": {
     "**/bin": true,
     "**/obj": true,
@@ -54,27 +55,62 @@
     "**/.vs": true,
     "**/*.user": true
   },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/bin/**": true,
+    "**/obj/**": true,
+    "**/.vs/**": true,
+    "**/.trunk/*logs/**": true,
+    "**/.trunk/*out/**": true
+  },
   "search.exclude": {
     "**/bin": true,
     "**/obj": true,
     "**/node_modules": true
   },
 
-  // ── Terminal ──────────────────────────────────────────────────
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "terminal.integrated.cwd": "/home/devops/workspace,"
+  // ── Terminal ───────────────────────────────────────────────────
   "terminal.integrated.fontSize": 14,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  // Always start the terminal in the current workspace folder
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "/bin/bash"
+    },
+    "zsh": {
+      "path": "/bin/zsh"
+    },
+    "Git Bash": {
+      "path": "C:\\Program Files\\Git\\bin\\bash.exe"
+    }
+  },
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+    },
+    "Command Prompt": {
+      "path": "C:\\Windows\\System32\\cmd.exe"
+    },
+    "Git Bash": {
+      "path": "C:\\Program Files\\Git\\bin\\bash.exe"
+    },
+    "WSL": {
+      "path": "wsl"
+    }
+  },
 
-  // ── Git ───────────────────────────────────────────────────────
+  // ── Git ────────────────────────────────────────────────────────
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "git.ignoreLimitWarning": true,
   "gitlens.codeLens.enabled": true,
 
-  // ── Docker ────────────────────────────────────────────────────
+  // ── Docker ─────────────────────────────────────────────────────
   "docker.host": "unix:///var/run/docker.sock",
 
-  // ── REST Client (test API endpoints in .http files) ───────────
+  // ── REST Client (test API endpoints in .http files) ────────────
   "rest-client.environmentVariables": {
     "$shared": {},
     "dev": {
@@ -87,26 +123,29 @@
     }
   },
 
-  // ── Error Lens ────────────────────────────────────────────────
+  // ── Error Lens ─────────────────────────────────────────────────
   "errorLens.enabledDiagnosticLevels": ["error", "warning"],
 
-  // ── SQLTools ──────────────────────────────────────────────────
+  // ── SQLTools ───────────────────────────────────────────────────
   "sqltools.useNodeRuntime": true,
   "sqltools.autoOpenSessionFiles": false,
-  "git.ignoreLimitWarning": true,
+
+  // ── CircleCI / Azure Functions ─────────────────────────────────
   "circleci.filters.branchFilter": "allBranches",
   "circleci.filters.myPipelinesOnly": false,
   "azureFunctions.projectSubpath": "mosgarage-intelligence/libs/sdk-typescript/runtime-tests/azure-functions",
+  "azureFunctions.deploySubpath": "mosgarage-intelligence/libs/sdk-typescript/runtime-tests/azure-functions",
+  "azureFunctions.postDeployTask": "npm install (functions)",
+  "azureFunctions.preDeployTask": "npm prune (functions)",
+  "azureFunctions.projectLanguage": "TypeScript",
+  "azureFunctions.projectRuntime": "~4",
+  "azureFunctions.projectLanguageModel": 4,
+
+  // ── Explorer / search ──────────────────────────────────────────
   "explorer.fileNesting.enabled": true,
   "explorer.excludeGitIgnore": true,
   "search.useGlobalIgnoreFiles": true,
   "search.useParentIgnoreFiles": true,
   "dotnet.codeLens.enableReferencesCodeLens": true,
-  "azureFunctions.deploySubpath": "mosgarage-intelligence/libs/sdk-typescript/runtime-tests/azure-functions",
-  "azureFunctions.postDeployTask": "npm install (functions)",
-  "azureFunctions.projectLanguage": "TypeScript",
-  "azureFunctions.projectRuntime": "~4",
-  "azureFunctions.projectLanguageModel": 4,
-  "azureFunctions.preDeployTask": "npm prune (functions)",
   "dotnet.codeLens.enableTestsCodeLens": true
 }

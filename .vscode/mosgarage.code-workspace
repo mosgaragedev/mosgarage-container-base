@@ -1,0 +1,76 @@
+{
+  // Canonical multi-root workspace for this repo.
+  //
+  // Open with:
+  //   code /home/devops/workspace.localhost/mosgarage-container-base/.vscode/mosgarage.code-workspace
+  // or from Windows:
+  //   \\wsl.localhost\Ubuntu\home\devops\workspace.localhost\mosgarage-container-base\.vscode\mosgarage.code-workspace
+  //
+  // Paths are relative to this file. Keep them POSIX-style so the same file
+  // works from WSL, from a devcontainer, and from Windows via \\wsl.localhost.
+  "folders": [
+    {
+      "name": "mosgarage-container-base",
+      "path": ".."
+    },
+    {
+      "name": "app",
+      "path": "../app"
+    },
+    {
+      "name": "aspir8",
+      "path": "../aspir8"
+    },
+    {
+      "name": "mosgarage-docker",
+      "path": "../mosgarage-docker"
+    },
+    {
+      "name": "docker-dev-env",
+      "path": "../docker-dev-env"
+    },
+    {
+      "name": "directory-structure",
+      "path": "../directory-structure"
+    },
+    {
+      // Lives under the .antigravity tooling checkout in this repo.
+      "name": "loginvsi-skills",
+      "path": "../.antigravity/loginvsi-skills"
+    },
+    {
+      // Only copy of this project on this machine, outside the repo.
+      // Copy it into the repo to make this root stable across machines.
+      "name": "wslcontainerdesktop",
+      "path": "../../mosgarage-workspace/.vscode-insiders/vscode-devcontainer-base/wslcontainerdesktop"
+    }
+  ],
+  "settings": {
+    // Per-root settings still come from each folder's own .vscode/settings.json;
+    // only settings that must apply across all roots belong here.
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "files.eol": "\n",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.formatOnSave": true,
+    "editor.rulers": [120],
+    "files.exclude": {
+      "**/bin": true,
+      "**/obj": true,
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/.vs": true,
+      "**/*.user": true
+    },
+    "search.exclude": {
+      "**/bin": true,
+      "**/obj": true,
+      "**/node_modules": true
+    },
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.ignoreLimitWarning": true,
+    "errorLens.enabledDiagnosticLevels": ["error", "warning"]
+  }
+}

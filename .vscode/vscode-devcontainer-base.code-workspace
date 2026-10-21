@@ -1,0 +1,102 @@
+{
+  // Legacy name kept so existing bookmarks keep working.
+  // Canonical workspace file: .vscode/mosgarage.code-workspace
+  // All paths are POSIX and relative to this file — no Windows drive letters.
+  "folders": [
+    {
+      "name": "mosgarage-container-base",
+      "path": ".."
+    },
+    {
+      "name": "app",
+      "path": "../app"
+    },
+    {
+      "name": "aspir8",
+      "path": "../aspir8"
+    },
+    {
+      "name": "mosgarage-docker",
+      "path": "../mosgarage-docker"
+    },
+    {
+      "name": "docker-dev-env",
+      "path": "../docker-dev-env"
+    },
+    {
+      "name": "directory-structure",
+      "path": "../directory-structure"
+    },
+    {
+      "name": "loginvsi-skills",
+      "path": "../.antigravity/loginvsi-skills"
+    },
+    {
+      "name": "wslcontainerdesktop",
+      "path": "../../mosgarage-workspace/.vscode-insiders/vscode-devcontainer-base/wslcontainerdesktop"
+    }
+  ],
+  "settings": {
+    "workbench.colorTheme": "Solarized Dark",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 12,
+    "workbench.editor.showTabs": "multiple",
+    "workbench.editor.tabSizing": "shrink",
+    "workbench.editor.wrapTabs": true,
+    "workbench.editor.pinnedTabSizing": "shrink",
+    "workbench.editor.labelFormat": "medium",
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.sharedViewState": true,
+    "workbench.commandPalette.preserveInput": true,
+    "workbench.editor.alwaysShowEditorActions": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "security.promptForLocalFileProtocolHandling": false,
+    "window.confirmSaveUntitledWorkspace": false,
+    "explorer.confirmDragAndDrop": false,
+    "files.autoSave": "afterDelay",
+    "editor.minimap.enabled": false,
+    "editor.minimap.renderCharacters": false,
+    "editor.codeActions.triggerOnFocusChange": true,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.definitionLinkOpensInPeek": true,
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "terminal.integrated.fontSize": 14,
+    "git.confirmSync": false,
+    "gitlens.codeLens.enabled": true,
+    "sqltools.useNodeRuntime": true,
+    "sqltools.autoOpenSessionFiles": false,
+    "git.ignoreLimitWarning": true,
+    "dotnet.codeLens.enableReferencesCodeLens": true,
+    "dotnet.codeLens.enableTestsCodeLens": true,
+    "dotnetAcquisitionExtension.allowInvalidPaths": true,
+    "docker.extension.enableComposeLanguageServer": false,
+    "docker.extension.dockerEngineAvailabilityPrompt": false,
+    "yaml.disableSchemaDetection": [
+      "**/.github/workflows/*.yml",
+      "**/.github/workflows/*.yaml",
+      "**/.gitea/workflows/*.yml",
+      "**/.gitea/workflows/*.yaml",
+      "**/.forgejo/workflows/*.yml",
+      "**/.forgejo/workflows/*.yaml"
+    ],
+    "files.exclude": {
+      "**/.trunk/*actions/": true,
+      "**/.trunk/*logs/": true,
+      "**/.trunk/*notifications/": true,
+      "**/.trunk/*out/": true,
+      "**/.trunk/*plugins/": true
+    },
+    "files.watcherExclude": {
+      "**/.trunk/*actions/": true,
+      "**/.trunk/*logs/": true,
+      "**/.trunk/*out/": true
+    },
+    "claudeCodeChat.wsl.enabled": true,
+    "claudeCodeChat.wsl.distro": "Ubuntu",
+    "claudeCodeChat.wsl.claudePath": "/usr/local/bin/claude",
+    "claude-config.autoRestartAfterConfigChange": true,
+    "claude-config.restartDelay": 2
+  }
+}

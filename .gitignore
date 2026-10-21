@@ -1,0 +1,20 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+claude_key.pem
+
+# ── Runtime / tool artifacts ──────────────────────────────────────────────────
+.venv/
+.aspire/
+node_modules/
+__pycache__/
+*.pyc
+.terraform/
+.DS_Store
+
+# ── Local editor/runtime logs ─────────────────────────────────────────────────
+.vscode/debug.log
+*.log
