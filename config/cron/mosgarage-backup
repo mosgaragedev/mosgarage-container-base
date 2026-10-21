@@ -1,0 +1,6 @@
+# /etc/cron.d/mosgarage-backup
+# Nightly workspace + shell config backup. Runs as root so it can read and
+# chown the archive in /workspaces/.mosgarage-backups.
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+17 2 * * * root /usr/local/bin/backup-workspace >> /var/log/mosgarage/backup.log 2>&1

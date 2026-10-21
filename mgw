@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+# =============================================================================
+# mgw — mosgarage workspace control
+#
+#   mgw status                  show the supervised services
+#   mgw start|stop|restart PGM  control one service (code-server, sshd, cron,
+#                               code-tunnel) or all of them
+#   mgw logs PGM                tail a service log
+#   mgw password [PASSWORD]     set/show the code-server password
+#   mgw shell                   open a login shell as mosgarage
+#   mgw version                 print the image version
+# =============================================================================
+set -euo pipefail
+
+SUPERVISOR_CONF="/etc/supervisor/conf.d/workspace.conf"
+LOG_DIR="/var/log/mosgarage"
+SERVICES=(code-server sshd cron code-tunnel)
+CONF_FILE="/home/mosgarage/.config/code-server/config.yaml"
+
+usage() {
+  sed -n '3,12p' "$0" | sed 's/^# \{0,1\}//'
+}
+
+supervisorctl_ws() {
+  supervisorctl -c "${SUPERVISOR_CONF}" "$@"
+}
+
+require_supervisor() {
+  if [[ ! -f "${SUPERVISOR_CONF}" ]]; then
+    echo "mgw: supervisord is not configured in this image (use the code-server target)" >&2
+    exit 1
+  fi
+  if ! supervisorctl_ws status >/dev/null 2>&1; then
+    echo "mgw: supervisord does not appear to be running" >&2
+    exit 1
+  fi
+}
+
+validate_service() {
+  local target="$1"
+  if [[ "${target}" != "all" ]] && [[ ! " ${SERVICES[*]} " == *" ${target} "* ]]; then
+    echo "mgw: unknown service '${target}' (expected one of: ${SERVICES[*]} all)" >&2
+    exit 2
+  fi
+}
+
+cmd="${1:-status}"
+shift || true
+
+case "${cmd}" in
+  status)
+    require_supervisor
+    supervisorctl_ws status
+    ;;
+  start|stop|restart)
+    require_supervisor
+    target="${1:-all}"
+    validate_service "${target}"
+    supervisorctl_ws "${cmd}" "${target}"
+    ;;
+  logs)
+    target="${1:?usage: mgw logs <service>}"
+    validate_service "${target}"
+    exec tail -n 100 -F "${LOG_DIR}/${target}.log"
+    ;;
+  password)
+    if [[ $# -gt 0 ]]; then
+      [[ -f "${CONF_FILE}" ]] || { echo "mgw: ${CONF_FILE} missing" >&2; exit 1; }
+      if grep -q '^password:' "${CONF_FILE}"; then
+        sed -i "s|^password:.*|password: $1|" "${CONF_FILE}"
+      else
+        printf 'password: %s\n' "$1" >> "${CONF_FILE}"
+      fi
+      chown mosgarage:mosgarage "${CONF_FILE}"
+      require_supervisor && supervisorctl_ws restart code-server
+      echo "mgw: code-server password updated"
+    else
+      [[ -f "${CONF_FILE}" ]] || { echo "mgw: ${CONF_FILE} missing" >&2; exit 1; }
+      sed -n 's/^password: *//p' "${CONF_FILE}"
+    fi
+    ;;
+  shell)
+    exec su -l mosgarage
+    ;;
+  version)
+    cat /etc/mosgarage-version 2>/dev/null || echo "mosgarage-container-base (unknown build)"
+    ;;
+  -h|--help|help)
+    usage
+    ;;
+  *)
+    echo "mgw: unknown command '${cmd}'" >&2
+    usage >&2
+    exit 2
+    ;;
+esac

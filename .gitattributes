@@ -1,0 +1,8 @@
+# Files copied into the Linux image must keep LF endings — a CRLF shebang
+# makes /bin/bash fail with "bad interpreter" inside the container.
+Dockerfile        text eol=lf
+*.sh              text eol=lf
+*.py              text eol=lf
+*.zsh             text eol=lf
+mgw               text eol=lf
+config/cron/*     text eol=lf

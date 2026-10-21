@@ -1,0 +1,12 @@
+# Build context allow-list — the image only needs these files.
+# A deny-all context keeps the 10k+ vendored/editor files out of the build.
+*
+!Dockerfile
+!*.sh
+!*.py
+!mgw
+!zshrc.zsh
+!zsh-aliases.zsh
+!p10k.zsh
+!config/
+!scripts/
