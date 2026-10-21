@@ -30,6 +30,8 @@ ARG TZ=Europe/London
 ARG NODE_VERSION=22
 ARG DOTNET_CHANNEL=10.0
 ARG INSTALL_AI_TOOLS=true
+# ADP tooling is internal-only and interactive; keep public builds reproducable.
+ARG INSTALL_ADP_TOOLS=false
 
 # CLI tool versions
 ARG SKAFFOLD_VERSION=2.14.2
@@ -160,7 +162,7 @@ RUN chmod +x /usr/local/bin/install-user-dependencies \
 
 USER ${USERNAME}
 
-RUN /usr/local/bin/install-user-dependencies
+RUN INSTALL_ADP_TOOLS="${INSTALL_ADP_TOOLS}" /usr/local/bin/install-user-dependencies
 
 # ── Shell experience ──────────────────────────────────────────────────────────
 COPY --chown=${USER_UID}:${USER_GID} zshrc.zsh         /home/${USERNAME}/.zshrc
